@@ -5,7 +5,7 @@ A decentralized lending protocol built on Ethereum that enables users to deposit
 ## Origin and license
 
 This repository is a cleaned-up, rebranded copy of a production DeFi lending
-protocol I worked on as part of a five-engineer team. The contracts were
+protocol I worked on as part of a two-engineer team. The contracts were
 deployed and verified on Ethereum mainnet under a different name. The source
 carries an MIT `SPDX-License-Identifier` in every file and is republished here
 under those terms; see [LICENSE](LICENSE) for the copyright notice.
