@@ -1,0 +1,85 @@
+{
+  "contractSizeLimits": {
+    "maxSizeBytes": 24576,
+    "warningThresholdBytes": 20000,
+    "criticalContracts": [
+      {
+        "name": "LendingVault",
+        "maxSizeBytes": 24576,
+        "warningThresholdBytes": 20000,
+        "description": "Main lending vault contract"
+      },
+      {
+        "name": "LiquidationEngine", 
+        "maxSizeBytes": 24576,
+        "warningThresholdBytes": 20000,
+        "description": "Liquidation engine contract"
+      },
+      {
+        "name": "ProtocolConfig",
+        "maxSizeBytes": 24576,
+        "warningThresholdBytes": 20000,
+        "description": "Protocol configuration contract"
+      },
+      {
+        "name": "StabilityFund",
+        "maxSizeBytes": 24576,
+        "warningThresholdBytes": 20000,
+        "description": "Stability fund contract"
+      },
+      {
+        "name": "Treasury",
+        "maxSizeBytes": 24576,
+        "warningThresholdBytes": 20000,
+        "description": "Treasury contract"
+      },
+      {
+        "name": "PUSD",
+        "maxSizeBytes": 24576,
+        "warningThresholdBytes": 20000,
+        "description": "PUSD token contract"
+      }
+    ]
+  },
+  "gasLimits": {
+    "criticalOperations": {
+      "deposit": {
+        "maxGas": 200000,
+        "warningThreshold": 150000,
+        "description": "Deposit collateral operation"
+      },
+      "borrow": {
+        "maxGas": 300000,
+        "warningThreshold": 250000,
+        "description": "Borrow PUSD operation"
+      },
+      "repay": {
+        "maxGas": 200000,
+        "warningThreshold": 150000,
+        "description": "Repay debt operation"
+      },
+      "withdraw": {
+        "maxGas": 200000,
+        "warningThreshold": 150000,
+        "description": "Withdraw collateral operation"
+      },
+      "liquidatePosition": {
+        "maxGas": 500000,
+        "warningThreshold": 400000,
+        "description": "Liquidate position operation"
+      },
+      "executeLiquidation": {
+        "maxGas": 400000,
+        "warningThreshold": 300000,
+        "description": "Execute liquidation operation"
+      }
+    }
+  },
+  "monitoring": {
+    "enableGasTracking": true,
+    "enableSizeTracking": true,
+    "generateReports": true,
+    "failOnSizeExceed": true,
+    "failOnGasExceed": false
+  }
+}
