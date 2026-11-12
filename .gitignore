@@ -9,7 +9,10 @@ out/
 /broadcast/**/dry-run/
 
 # Docs
-docs/
+docs/*
+!docs/images/
+docs/images/*
+!docs/images/coverage.png
 
 # Dotenv file
 .env

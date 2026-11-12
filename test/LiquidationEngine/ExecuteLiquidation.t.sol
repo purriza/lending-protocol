@@ -457,6 +457,34 @@ contract ExecuteLiquidationTest is TestSetup {
         assertEq(record.debtAmount, smallDebt, "Should handle very small debt");
     }
 
+    /// @notice 1 wei of collateral makes the first binary-search midpoint round to 0.
+    /// @dev left starts at 0 and right at 1, so mid = (0 + 1) / 2 == 0 and the search stops before quoting.
+    function test_ExecuteLiquidation_BinarySearchExitsWhenMidRoundsToZero() public {
+        uint256 collateralAmount = 1;
+        uint256 debtAmount = 1 ether;
+
+        uint256 treasuryCollateralBefore = treasury.wstETHBalance();
+
+        wstETH.mint(address(lendingVault), collateralAmount);
+
+        vm.startPrank(address(lendingVault));
+        wstETH.approve(address(liquidationEngine), collateralAmount);
+
+        uint256 liquidationId = _executeLiquidation(user1, collateralAmount, debtAmount);
+        vm.stopPrank();
+
+        ILiquidationEngine.LiquidationRecord memory record = liquidationEngine.getLiquidation(liquidationId);
+        assertEq(record.collateralAmount, collateralAmount, "dust collateral should be recorded");
+        assertEq(record.debtAmount, debtAmount, "debt should still be recorded");
+        assertTrue(record.backstopUsed, "unsold dust collateral cannot cover the debt");
+        assertEq(
+            treasury.wstETHBalance() - treasuryCollateralBefore,
+            collateralAmount,
+            "unsold dust collateral should be sent to the treasury"
+        );
+        assertEq(pusd.balanceOf(address(liquidationEngine)), 0, "no swap output should remain on the engine");
+    }
+
     function test_ExecuteLiquidation_HandlesVeryLargeAmounts() public {
         uint256 largeCollateral = type(uint256).max / 2; // Very large amount
         uint256 largeDebt = type(uint256).max / 4; // Very large debt

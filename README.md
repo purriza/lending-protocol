@@ -10,7 +10,7 @@ provide liquidity for liquidations and support the protocol's risk management.
 ## Origin and License
 
 This repository is a cleaned-up and rebranded copy of a DeFi lending
-protocol I worked on as part of a two-engineer team. The original contracts
+protocol I worked on as part of a five-engineer team. The original contracts
 were deployed and verified on Ethereum mainnet under a different name.
 
 The source carries an MIT `SPDX-License-Identifier` in every file and is
@@ -61,13 +61,18 @@ responsibilities:
 
 | Contract | Responsibility |
 | --- | --- |
-| **PUSD** | Protocol-issued stablecoin with restricted minting and burning. |
-| **wPUSD** | Wrapped token representing participation in the StabilityFund. |
-| **ProtocolConfig** | Manages protocol parameters and permissions. |
-| **LendingVault** | Manages collateral deposits, borrowing, repayments and withdrawals. |
-| **StabilityFund** | Accepts PUSD deposits, issues wPUSD and provides liquidity for protocol operations. |
-| **LiquidationEngine** | Coordinates the liquidation of eligible positions. |
-| **Treasury** | Manages protocol funds and participates in backstop mechanisms. |
+| [PUSD](contracts/PUSD.sol) | Protocol-issued stablecoin with restricted minting and burning. |
+| [wPUSD](contracts/wPUSD.sol) | Wrapped token representing participation in the StabilityFund. |
+| [ProtocolConfig](contracts/ProtocolConfig.sol) | Manages protocol parameters and permissions. |
+| [LendingVault](contracts/LendingVault.sol) | Manages collateral deposits, borrowing, repayments and withdrawals. |
+| [StabilityFund](contracts/StabilityFund.sol) | Accepts PUSD deposits, issues wPUSD and provides liquidity for protocol operations. |
+| [LiquidationEngine](contracts/LiquidationEngine.sol) | Coordinates the liquidation of eligible positions. |
+| [Treasury](contracts/Treasury.sol) | Manages protocol funds and participates in backstop mechanisms. |
+| [DataTypes](contracts/DataTypes.sol) | Contains data types used across the protocol. |
+
+Contract interfaces are available in
+[`contracts/interfaces/`](contracts/interfaces/) and mock contracts are
+available in [`contracts/mocks/`](contracts/mocks/).
 
 ## 🚀 Features
 
@@ -112,12 +117,32 @@ assumed to match the current deployed implementations exactly.
 - **Smart contracts:** Solidity and OpenZeppelin.
 - **Development and testing:** Foundry.
 - **External infrastructure:** Chainlink, Uniswap V3 and wstETH.
-- **Upgradeability:** UUPS proxies.
+- **Upgradeability:** UUPS proxies for supported contracts.
 
 ## 🧪 Testing
 
 The contracts are tested with Foundry. The test suite includes unit and
 invariant tests, with fuzz, fork and integration tests where applicable.
+
+Explore the [full test suite](test/) or browse the
+[smart contract source](contracts/).
+
+### Tests by Component
+
+- [LendingVault](test/LendingVault/)
+  - [Borrow](test/LendingVault/Borrow.t.sol)
+  - [Deposit](test/LendingVault/Deposit.t.sol)
+  - [Repay](test/LendingVault/Repay.t.sol)
+  - [Withdraw](test/LendingVault/Withdraw.t.sol)
+  - [Liquidate Position](test/LendingVault/LiquidatePosition.t.sol)
+  - [Oracle](test/LendingVault/Oracle.t.sol)
+  - [Invariants](test/LendingVault/Invariants/)
+- [LiquidationEngine](test/LiquidationEngine/)
+- [ProtocolConfig](test/ProtocolConfig/)
+- [PUSD](test/PUSD/)
+- [StabilityFund](test/StabilityFund/)
+- [Treasury](test/Treasury/)
+- [wPUSD](test/wPUSD/)
 
 ### Run All Tests
 
@@ -155,6 +180,14 @@ If you encounter a `stack too deep` error during coverage, try:
 ```bash
 forge coverage --ir-minimum --report lcov --out lcov.info
 ```
+
+### Coverage Results
+
+The coverage report shown below includes **756 passing tests** and **100%
+coverage** across lines, statements, branches and functions for the measured
+contracts in `contracts/`.
+
+![Foundry test coverage report](docs/images/coverage.png)
 
 ## 🔧 Getting Started
 
@@ -331,29 +364,19 @@ This repository is published as a reference and portfolio project. Its
 presence here does not imply that the current contents have independently
 undergone the same audit or that they are ready for a new deployment.
 
+Any new deployment should be independently reviewed, tested and audited.
+
 ## 📁 Repository Structure
 
-```text
-lending-protocol/
-├── contracts/              # Smart contracts
-├── lib/                    # Dependencies
-├── script/                 # Foundry scripts
-│   ├── NetworkAddresses.sol
-│   ├── config/             # Configuration scripts
-│   ├── deploy/             # Deployment and upgrade scripts
-│   └── testing-verification/
-├── scripts/                # Bash automation scripts
-│   ├── deploy/
-│   ├── gas/
-│   ├── size/
-│   └── verification/
-├── test/                   # Test files
-├── tools/                  # Supporting tooling
-├── foundry.toml
-├── remappings.txt
-├── LICENSE
-└── README.md
-```
+- [`contracts/`](contracts/): Smart contract source code.
+- [`contracts/interfaces/`](contracts/interfaces/): Contract interfaces.
+- [`contracts/mocks/`](contracts/mocks/): Mock contracts.
+- [`test/`](test/): Test suites grouped by component.
+- `script/`: Foundry deployment, upgrade and configuration scripts.
+- `scripts/`: Bash automation scripts.
+- `tools/`: Supporting tooling.
+- `docs/images/`: Coverage report screenshot.
+- [`LICENSE`](LICENSE): License and copyright notice.
 
 ## 📚 Resources
 
