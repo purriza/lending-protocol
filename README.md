@@ -322,11 +322,10 @@ Individual Foundry configuration scripts are available in `script/config/`.
 
 ### Deployment Scripts
 
-- **`scripts/deploy/deploy-contracts.sh`:** Deploy contracts.
-- **`scripts/deploy/configure-contracts.sh`:** Configure contract
+- **[`scripts/deploy/deploy-contracts.sh`](scripts/deploy/deploy-contracts.sh):** Deploy contracts.
+- **[`scripts/deploy/configure-contracts.sh`](scripts/deploy/configure-contracts.sh):** Configure contract
   relationships and parameters.
-- **`scripts/deploy/upgrade-contracts.sh`:** Upgrade supported contracts.
-- **`scripts/verification/verify-contracts.sh`:** Verify deployed contracts.
+- **[`scripts/deploy/upgrade-contracts.sh`](scripts/deploy/upgrade-contracts.sh):** Upgrade supported contracts.
 
 ## 🔄 Upgrades
 
@@ -372,10 +371,9 @@ Any new deployment should be independently reviewed, tested and audited.
 - [`contracts/interfaces/`](contracts/interfaces/): Contract interfaces.
 - [`contracts/mocks/`](contracts/mocks/): Mock contracts.
 - [`test/`](test/): Test suites grouped by component.
-- `script/`: Foundry deployment, upgrade and configuration scripts.
-- `scripts/`: Bash automation scripts.
-- `tools/`: Supporting tooling.
-- `docs/images/`: Coverage report screenshot.
+- [`script/`](script/): Foundry deployment, upgrade and configuration scripts.
+- [`scripts/`](scripts/): Bash automation scripts.
+- [`tools/`](tools/): Supporting tooling.
 - [`LICENSE`](LICENSE): License and copyright notice.
 
 ## 📚 Resources
